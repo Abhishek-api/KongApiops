@@ -1,0 +1,23 @@
+
+pipeline{   
+   agent any
+   stages {
+        //Checkout Git Repo
+        stage('Checkout') {
+            steps {
+                git  url: 'https://github.com/Abhishek-api/ApiActionDemo'
+            }
+        }
+        //Lint the OpenAPI spec using Insomnia CLI
+        stage('Deploy to dev portal') {
+            steps {
+                sh ' KONG_ADMIN_URL=https://34.125.74.21:8444 portal deploy --preserve default -D '
+            }
+        }
+   }
+   post {
+        always {
+           deleteDir()
+       }
+    }
+}

@@ -1,0 +1,48 @@
+pipeline{  
+ agent any
+   stages {
+        //Lint the OpenAPI spec using Insomnia CLI
+        stage('Lint OpenAPI Spec') {
+            steps {
+                sh 'inso lint spec pipe1.yml'
+            }
+        }
+        //Generate Kong configuration in declarative format
+        stage('Generate Kong configuration in declarative format') {
+            steps {
+                sh 'inso generate config pipe1.yml --type declarative -o kong.yaml'
+            }
+        }
+        //Display the contents of the generated Kong configuration
+        stage('open kong.yaml') {
+            steps {
+                sh 'cat kong.yaml'
+            }
+        }
+
+        //Validate the Kong configuration using deck CLI
+        stage('Validate the Kong configuration using deck CLI') {
+            steps {
+                sh 'deck validate -s kong.yaml'
+            }
+        }
+        //Convert the Kong configuration to version 3.x using deck CLI
+        stage('Convert kong declarative') {
+            steps {
+                sh 'deck convert --from kong-gateway-2.x --to kong-gateway-3.x --input-file kong.yaml --output-file new-kong.yaml'
+            }
+        } 
+        //Deploy to Kong
+        stage('Deploy to Kong') {
+            steps {
+                sh 'deck sync -s new-kong.yaml --kong-addr https://34.125.74.21:8444 --tls-skip-verify'
+            }
+        }
+        
+     }
+   post {
+        always {
+           deleteDir()
+       }
+    }
+}
