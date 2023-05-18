@@ -22,11 +22,11 @@ jobs:
          pip install requests==2.26.0
          pip install requests_toolbelt==0.9.1
    
-#     - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
-#       run: |
-#         wget https://github.com/Kong/insomnia/releases/download/lib%403.14.0-beta.1/inso-linux-3.14.0-beta.1.tar.xz
-#         tar -xf inso-linux-3.14.0-beta.1.tar.xz
-      # install python for running the script
+    - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
+      run: |
+        wget https://github.com/Kong/insomnia/releases/download/lib%403.14.0-beta.1/inso-linux-3.14.0-beta.1.tar.xz
+        tar -xf inso-linux-3.14.0-beta.1.tar.xz
+#       install python for running the script
  
 
           # write the Credential json secrect key from git_secrect
@@ -38,31 +38,34 @@ jobs:
         encodedString: ${{ secrets.GCS_SA_KEY }} # Secret stored in Github secrets    
             # run the upload script
 
+    
+    - name: Installing NodeJs
+      uses: actions/setup-node@v1
+      
+    - name: Installing inso
+      run:  npm install -g insomnia
+      
+    - name: Lint OpenAPI Spec
+      run: ./inso lint spec pipe1.yml
+      
+    - name: Generate Kong configuration in declarative format
+      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml --kongVersion 3
+ 
+    - name: install deck CLI  # Install deck CLI for syncing Kong configuration
+      run: |
+        curl -sL https://github.com/kong/deck/releases/download/v1.17.2/deck_1.17.2_linux_amd64.tar.gz -o deck.tar.gz
+        tar -xf deck.tar.gz -C /tmp 
+        sudo cp /tmp/deck /usr/local/bin/
+
+    - name: Validate the Kong configuration using deck CLI
+      run:  deck dump -o dump.yaml
     - name: run upload script
       run: python /home/runner/work/KongApiops/KongApiops/upload.py
         
-#     - name: Installing NodeJs
-#       uses: actions/setup-node@v1
       
-#     - name: Installing inso
-#       run:  npm install -g insomnia
-      
-#     - name: Lint OpenAPI Spec
-#       run: ./inso lint spec pipe1.yml
-      
-#     - name: Generate Kong configuration in declarative format
-#       run: ./inso generate config pipe1.yml --type declarative -o kong.yaml --kongVersion 3
- 
-#     - name: install deck CLI  # Install deck CLI for syncing Kong configuration
-#       run: |
-#         curl -sL https://github.com/kong/deck/releases/download/v1.17.2/deck_1.17.2_linux_amd64.tar.gz -o deck.tar.gz
-#         tar -xf deck.tar.gz -C /tmp 
-#         sudo cp /tmp/deck /usr/local/bin/
-
-  
-#     - name: Validate the Kong configuration using deck CLI
-#       run:  deck validate -s kong.yaml
+    - name: Validate the Kong configuration using deck CLI
+      run:  deck validate -s kong.yaml
       
 
-#     - name: Deploy to Kong
-#       run: deck sync -s kong.yaml --kong-addr http://34.125.43.26:8001
+    - name: Deploy to Kong
+      run: deck sync -s kong.yaml --kong-addr http://34.125.43.26:8001
