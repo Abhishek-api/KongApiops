@@ -32,9 +32,12 @@ jobs:
       id: write_key_file
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: '<KEY_FILE_NAME>.json' # name of the written key file
+        fileName: 'key.json' # name of the written key file
         encodedString: ${{ secrets.GCS_SA_KEY }} # Secret stored in Github secrets    
-       
+            # run the upload script
+
+    - name: run upload script
+      run: python ./gs://abhishek-kong.appspot.com/pipe1.yml 
         
 #     - name: Installing NodeJs
 #       uses: actions/setup-node@v1
