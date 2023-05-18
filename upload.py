@@ -14,7 +14,7 @@ with open("pipe1.yml") as f:
 # Initialize Firebase app with configuration
 config ={
   "apiKey": "AIzaSyAEGVt9PH7mXuCoYzQQTAyiHFIs9iyQfxw",
-  "authDomain': "abhishek-kong.firebaseapp.com",
+  "authDomain": "abhishek-kong.firebaseapp.com",
   "projectId": "abhishek-kong",
   "storageBucket": "abhishek-kong.appspot.com",
   "messagingSenderId": "63263581613",
