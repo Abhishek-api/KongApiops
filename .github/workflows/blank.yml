@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master  # Trigger the deployment when pushing to the main branch
-#k
+#g
 jobs:
   OAS_To_KONG:
     runs-on: ubuntu-latest  # Use Ubuntu as the operating system for the job
