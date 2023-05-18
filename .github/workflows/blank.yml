@@ -11,6 +11,14 @@ jobs:
     steps:
     - name: Checkout Code  # Checkout the code from the repository
       uses: actions/checkout@v2
+  
+    - name: Setup Python and dependencies
+      uses: actions/setup-python@v2
+      with:
+          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+    - run: |
+          pip install firebase-admin           
    
     - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
       run: |
@@ -18,13 +26,7 @@ jobs:
         tar -xf inso-linux-3.14.0-beta.1.tar.xz
       # install python for running the script
  
-    - name: Setup Python and dependencies
-      uses: actions/setup-python@v2
-      with:
-          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-    - run: |
-          pip install firebase-admin        
+
         
         
         
