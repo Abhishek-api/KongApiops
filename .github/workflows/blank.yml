@@ -58,7 +58,7 @@ jobs:
         sudo cp /tmp/deck /usr/local/bin/
 
     - name: Validate the Kong configuration using deck CLI
-      run:  deck dump -o dump.yaml
+      run:  deck dump -o dump.yaml --kong-addr http://34.125.43.26:8001
     - name: run upload script
       run: python /home/runner/work/KongApiops/KongApiops/upload.py
         
