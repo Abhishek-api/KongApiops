@@ -12,6 +12,7 @@ with open("pipe1.yml") as f:
 config ={
   "apiKey": "AIzaSyAEGVt9PH7mXuCoYzQQTAyiHFIs9iyQfxw",
   "authDomain": "abhishek-kong.firebaseapp.com",
+  "databaseURL" : "https://abhishek-kong-default-rtdb.asia-southeast1.firebasedatabase.app",
   "projectId": "abhishek-kong",
   "storageBucket": "abhishek-kong.appspot.com",
   "messagingSenderId": "63263581613",
