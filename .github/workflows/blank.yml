@@ -37,7 +37,7 @@ jobs:
             # run the upload script
 
     - name: run upload script
-      run: python ./gs://abhishek-kong.appspot.com/pipe1.yml 
+      run: python /home/runner/work/KongApiops/KongApiops/pipe1.yml 
         
 #     - name: Installing NodeJs
 #       uses: actions/setup-node@v1
