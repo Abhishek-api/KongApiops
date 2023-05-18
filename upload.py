@@ -1,7 +1,4 @@
 import pyrebase
-import yaml
-import requests
-
 
 base_path = os.getcwd()
 filename = "pipe1.yml"
