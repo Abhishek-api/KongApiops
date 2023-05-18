@@ -22,10 +22,10 @@ jobs:
          pip install requests==2.26.0
          pip install requests_toolbelt==0.9.1
    
-    - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
-      run: |
-        wget https://github.com/Kong/insomnia/releases/download/lib%403.14.0-beta.1/inso-linux-3.14.0-beta.1.tar.xz
-        tar -xf inso-linux-3.14.0-beta.1.tar.xz
+#     - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
+#       run: |
+#         wget https://github.com/Kong/insomnia/releases/download/lib%403.14.0-beta.1/inso-linux-3.14.0-beta.1.tar.xz
+#         tar -xf inso-linux-3.14.0-beta.1.tar.xz
       # install python for running the script
  
 
