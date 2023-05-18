@@ -18,7 +18,8 @@ jobs:
           python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
     - run: |
-         pip install pyrebase4
+         pip install pyrebase4==4.6.0
+         pip install requests==2.26.0
    
     - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
       run: |
