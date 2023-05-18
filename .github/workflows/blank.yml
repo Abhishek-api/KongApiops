@@ -20,6 +20,7 @@ jobs:
     - run: |
          pip install pyrebase4==4.6.0
          pip install requests==2.26.0
+         pip install requests_toolbelt==0.9.1
    
     - name: Install Insomnia CLI  # Install Insomnia CLI for linting and generating Kong configuration
       run: |
