@@ -2,7 +2,7 @@ import pyrebase
 
 
 filename = "pipe1.yml"
-with open("pipe1.yml") as f:
+with open("pipe1.yml","rb") as f:
   file_data =f.read()
 
 
