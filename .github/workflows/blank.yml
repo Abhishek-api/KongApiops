@@ -27,8 +27,14 @@ jobs:
       # install python for running the script
  
 
-        
-        
+          # write the Credential json secrect key from git_secrect
+    - name: get secrect key
+      id: write_key_file
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: '<KEY_FILE_NAME>.json' # name of the written key file
+        encodedString: ${{ secrets.GCS_SA_KEY }} # Secret stored in Github secrets    
+       
         
 #     - name: Installing NodeJs
 #       uses: actions/setup-node@v1
