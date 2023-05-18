@@ -1,6 +1,6 @@
 import pyrebase
 
-base_path = os.getcwd()
+
 filename = "pipe1.yml"
 with open("pipe1.yml") as f:
   file_data =f.read()
