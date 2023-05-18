@@ -1,8 +1,8 @@
 import pyrebase
 
 
-filename = "pipe1.yml"
-with open("pipe1.yml","rb") as f:
+filename = "dump.yaml"
+with open("dump.yaml","rb") as f:
   file_data =f.read()
 
 
@@ -24,6 +24,6 @@ config ={
 firebase = pyrebase.initialize_app(config)
 
 storage = firebase.storage()
-# storage.child("Specs/" + "filename.yml").put(file_data)
-storage.child("Specs/filename.yml").put(file_data)
+# storage.child("Specs/" + "filename.yaml").put(file_data)
+storage.child("Specs/filename1.yaml").put(file_data)
 
