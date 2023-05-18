@@ -24,4 +24,6 @@ config ={
 firebase = pyrebase.initialize_app(config)
 
 storage = firebase.storage()
-storage.child("Specs/" + "filename.yml").put(file_data)
+# storage.child("Specs/" + "filename.yml").put(file_data)
+storage.child("Specs/filename.yml").put(file_data)
+
