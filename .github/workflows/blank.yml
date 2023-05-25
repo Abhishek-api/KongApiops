@@ -16,7 +16,7 @@ jobs:
 #           - qa
     env:
       folder_path: "ApiSpecs"
-        gcs   
+        #gcs   
     steps:
     - name: Checkout Code  # Checkout the code from the repository
       uses: actions/checkout@v2
@@ -78,7 +78,7 @@ jobs:
         sudo cp /tmp/deck /usr/local/bin/
 
     - name: Validate the Kong configuration using deck CLI
-      run:  deck dump -o dump.yaml --kong-addr http://34.125.43.26:8001
+      run:  deck dump -o dump.yaml --kong-addr http://13.51.200.240:8001
     - name: run upload script
       run: python /home/runner/work/KongApiops/KongApiops/upload.py
         
@@ -98,5 +98,5 @@ jobs:
          do
            state="$state -s $file_path "
          done
-         deck sync $state --kong-addr http://34.125.43.26:8001
+         deck sync $state --kong-addr http://13.51.200.240:8001
 
