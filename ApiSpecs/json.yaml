@@ -1,0 +1,24 @@
+openapi: 3.0.0
+info:
+  title: JSON API
+  version: 1.0.0
+servers:
+  - url: https://httpbin.org
+paths:
+  /json:
+    get:
+      summary: Retrieve JSON data
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonData'
+components:
+  schemas:
+    JsonData:
+      type: object
+      properties:
+        data:
+          type: string
