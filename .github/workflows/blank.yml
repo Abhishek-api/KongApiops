@@ -62,8 +62,6 @@ jobs:
           done
       
     - name: Generate Kong configuration in declarative format
-      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml 
-    - name: Generate Kong configuration in declarative format
       run: |
           for file_path in $folder_path/*
           do
