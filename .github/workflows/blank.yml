@@ -2,12 +2,21 @@ name: Demo to Delpoy OAS to Kong # Specify the name of the deployment
 on:
   push:
     branches:
-      - master  # Trigger the deployment when pushing to the main branch
-#g
+      - master-2  # Trigger the deployment when pushing to the main branch
+
 jobs:
   OAS_To_KONG:
     runs-on: ubuntu-latest  # Use Ubuntu as the operating system for the job
-           
+#     strategy:
+#       matrix:
+#         workspace:
+#           - default
+#           - sandbox
+#           - production
+#           - qa
+    env:
+      folder_path: "ApiSpecs"
+        gcs   
     steps:
     - name: Checkout Code  # Checkout the code from the repository
       uses: actions/checkout@v2
@@ -46,10 +55,21 @@ jobs:
       run:  npm install -g insomnia
       
     - name: Lint OpenAPI Spec
-      run: ./inso lint spec pipe1.yml
+      run: |
+          for file_path in $folder_path/*
+          do
+            inso lint spec ./$file_path
+          done
       
     - name: Generate Kong configuration in declarative format
-      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml --kongVersion 3
+      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml 
+    - name: Generate Kong configuration in declarative format
+      run: |
+          for file_path in $folder_path/*
+          do
+            inso generate config ./$file_path --type declarative -o ./$file_path --kongVersion 3
+          done
+
  
     - name: install deck CLI  # Install deck CLI for syncing Kong configuration
       run: |
@@ -64,8 +84,19 @@ jobs:
         
       
     - name: Validate the Kong configuration using deck CLI
-      run:  deck validate -s kong.yaml
-      
+      run: |
+         for file_path in $folder_path/*
+         do
+           deck validate -s ./$file_path
+         done
+
 
     - name: Deploy to Kong
-      run: deck sync -s kong.yaml --kong-addr http://34.125.43.26:8001
+      run: |
+         state=""
+         for file_path in $folder_path/*
+         do
+           state="$state -s $file_path "
+         done
+         deck sync $state --kong-addr http://34.125.43.26:8001
+
