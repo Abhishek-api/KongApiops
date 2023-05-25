@@ -58,7 +58,7 @@ jobs:
       run: |
           for file_path in $folder_path/*
           do
-            inso lint spec ./$file_path
+            ./inso lint spec ./$file_path
           done
       
     - name: Generate Kong configuration in declarative format
@@ -67,7 +67,7 @@ jobs:
       run: |
           for file_path in $folder_path/*
           do
-            inso generate config ./$file_path --type declarative -o ./$file_path --kongVersion 3
+            ./inso generate config ./$file_path --type declarative -o ./$file_path --kongVersion 3
           done
 
  
