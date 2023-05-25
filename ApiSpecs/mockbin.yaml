@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  description: OpenAPI Specification for the Mock Targets 
+  version: 1.0.3
+  title: My Mock Target API
+  contact:
+    email: mockmail@gmail.com
+    name: vinod
+tags:
+  - name: JSON
+  - name: XML
+paths:
+  /json:
+   get:
+     tags:
+       - JSON
+     description: To fetch details of Mock Response
+     responses:
+      "200":
+        description: 200 response
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/mocks"
+     operationId: getJSON
+  /xml:
+   get:
+     tags:
+       - XML
+     description: To fetch details of Mock Response
+     responses:
+      "200":
+        description: 200 response
+        content:
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/mockxml"
+     operationId: getXML
+components: 
+  schemas:
+   mocks:
+    type: object
+    properties:
+     firstname:
+      type: string 
+      default: "John"
+     lastname:
+      type: string 
+      default: "Doe"
+     city:
+      type: string 
+      default: "San Jose"
+     state:
+      type: string 
+      default: "CA"
+   mockxml:
+    type: object
+    properties:
+     city:
+      type: string 
+      default: "San Jose"
+     firstname:
+      type: string 
+      default: "John"
+     lastname:
+      type: string 
+      default: "Doe"
+     state:
+      type: string 
+      default: "CA"
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: http://httbin.org
+    description: httbin.org target
+  - url: http://mockbintarget.apigee.net
+    description: mockbintarget.apigee.net target
